@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vect2.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fatkeski <fatkeski@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagonzal <cagonzal@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 20:39:15 by fatkeski          #+#    #+#             */
-/*   Updated: 2025/08/01 21:14:24 by fatkeski         ###   ########.fr       */
+/*   Updated: 2025/11/15 11:01:43 by cagonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ vect2::vect2()
 
 vect2::vect2(int num1, int num2)
 {
-	this->x = num1;
-	this->y = num2;
+	this->x = num1, this->y = num2;
 }
 
 vect2::vect2(const vect2& source)

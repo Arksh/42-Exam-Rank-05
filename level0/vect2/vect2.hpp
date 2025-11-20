@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vect2.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fatkeski <fatkeski@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagonzal <cagonzal@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 18:20:54 by fatkeski          #+#    #+#             */
-/*   Updated: 2025/08/01 21:14:17 by fatkeski         ###   ########.fr       */
+/*   Updated: 2025/11/19 17:37:30 by cagonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ class vect2
 		int& operator[](int index); // NON-COST
 
 		vect2 operator-() const;
-		vect2 operator*(int num) const;
 
 		vect2& operator*=(int num);
-
+		
+		vect2 operator*(int num) const;
+		
 		vect2& operator+=(const vect2& obj);
 		vect2& operator-=(const vect2& obj);
 		vect2& operator*=(const vect2& obj);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fatkeski <fatkeski@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagonzal <cagonzal@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 21:04:35 by fatkeski          #+#    #+#             */
-/*   Updated: 2025/07/29 15:21:50 by fatkeski         ###   ########.fr       */
+/*   Updated: 2025/11/15 11:15:05 by cagonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int main()
 	const vect2 v3(v2); // 1, 2
 	vect2 v4 = v2; // 1, 2
 
+	std::cout << "Testing vect2 class" << std::endl;
 	std::cout << "v1: " << v1 << std::endl;
 	std::cout << "v1: " << "{" << v1[0] << ", " << v1[1] << "}" << std::endl;
 	std::cout << "v2: " << v2 << std::endl;
@@ -38,6 +39,7 @@ int main()
 	v1 *= 42; // -84, -168
 	v1 = v1 - v1 + v1;
 
+	std::cout << "After operations:" << std::endl;
 	std::cout << "v1: " << v1 << std::endl;
 	std::cout << "v2: " << v2 << std::endl;
 	std::cout << "-v2: " << -v2 << std::endl;

@@ -37,6 +37,7 @@ int main(int argc, char **argv)
 
 	set sa(*a);
 	set st(*t);
+	st.get_bag().print();
 	for (int i = 1; i < argc; i++)
 	{
 		st.insert(atoi(argv[i]));

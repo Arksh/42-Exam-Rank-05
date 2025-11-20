@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   bigint.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fatkeski <fatkeski@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagonzal <cagonzal@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:17:26 by fatkeski          #+#    #+#             */
-/*   Updated: 2025/08/01 13:57:18 by fatkeski         ###   ########.fr       */
+/*   Updated: 2025/11/20 08:11:40 by cagonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BIGINT
 #define BIGINT
 
-#include <sstream>
 #include <iostream>
 #include <string>
 #include <cstdlib>
