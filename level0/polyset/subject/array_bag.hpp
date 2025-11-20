@@ -2,7 +2,7 @@
 
 #include "bag.hpp"
 
-class array_bag : virtual public bag
+class array_bag : public bag
 {
  protected:
 	int *data;

@@ -2,7 +2,7 @@
 
 #include "bag.hpp"
 
-class tree_bag : virtual public bag {
+class tree_bag : public bag {
 protected:
   struct node {
     node *l;
