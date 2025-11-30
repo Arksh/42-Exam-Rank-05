@@ -12,36 +12,20 @@
 
 #include "bigint.hpp"
 #include <sstream>
-
-bigint::bigint()
-{
-	this->str = "0";
-}
+#include <algorithm>
 
 bigint::bigint(unsigned int num)
 {
 	std::stringstream ss;
 	ss << num;
 	this->str = ss.str();
-	// std::cout << "str: " << str << std::endl;
-}
-
-bigint::bigint(const bigint& source)
-{
-	*this = source;
 }
 
 bigint& bigint::operator=(const bigint& source)
 {
-	if(this == &source)
-		return*this;
-	this->str = source.str;
+	if(this != &source)
+		this->str = source.str;
 	return*this;
-}
-
-std::string bigint::getStr() const
-{
-	return(this->str);
 }
 
 std::string reverse(const std::string& str)
@@ -55,38 +39,15 @@ std::string reverse(const std::string& str)
 std::string addition(const bigint& obj1, const bigint& obj2)
 {
 	std::string str1 = reverse(obj1.getStr());
-	// std::string str1 = obj1.getStr();
-	// std::reverse(str1.begin(), str1.end());
-	std::string str2 = reverse(obj2.getStr());
-	// std::string str2 = obj1.getStr();
-	// std::reverse(str2.begin(), str1.end());
+	std::string str2 = obj2.getStr();
+	std::reverse(str2.begin(), str2.end());
 	std::string result;
 
 	// Make both strings the same length by appending '0's to the shorter one
-	
 	while (str1.length() < str2.length())
 		str1.push_back('0');
 	while (str2.length() < str1.length())
 		str2.push_back('0');
-
-	// if(str1.length() > str2.length())
-	// {
-	// 	int diff = str1.length() - str2.length();
-	// 	while(diff > 0)
-	// 	{
-	// 		str2.push_back('0');
-	// 		diff--;
-	// 	}
-	// }
-	// else if(str2.length() > str1.length())
-	// {
-	// 	int diff = str2.length() - str1.length();
-	// 	while(diff > 0)
-	// 	{
-	// 		str1.push_back('0');
-	// 		diff--;
-	// 	}
-	// }
 
 	int carry = 0;
 	int digit1;
@@ -102,18 +63,17 @@ std::string addition(const bigint& obj1, const bigint& obj2)
 			carry = res / 10;
 		result.push_back((res % 10) + '0');
 	}
+
 	if(carry != 0)
 		result.push_back(carry + '0');
+	
 	return(reverse(result));
 }
 
 bigint bigint::operator+(const bigint& other) const
 {
 	bigint temp;
-	temp.str.clear();
-	std::string result = addition(*this, other);
-	temp.str = result;
-
+	temp.str = addition(*this, other);
 	return(temp);
 }
 
@@ -125,16 +85,33 @@ bigint& bigint::operator+=(const bigint& other)
 
 bigint& bigint::operator++()
 {
-	*(this) = *(this) + bigint(1);
-	return*this;
+	*this += bigint(1);
+	return *this;
 }
 
 bigint bigint::operator++(int)
 {
 	bigint temp = *this;
-	*(this) = *(this) + bigint(1);
+	*this += bigint(1);
 	return(temp);
 }
+
+// bigint& bigint::operator++()
+// {
+// 	static const bigint one(1);
+
+// 	*this += one;
+// 	return *this;
+// }
+
+// bigint bigint::operator++(int)
+// {
+// 	static const bigint one(1);
+// 	bigint temp = *this;
+
+// 	*this += one;
+// 	return(temp);
+// }
 
 
 bigint bigint::operator<<(unsigned int n)const
@@ -142,7 +119,6 @@ bigint bigint::operator<<(unsigned int n)const
 	bigint temp = *this;
 
 	temp.str.insert(temp.str.end(), n, '0');
-	//std::cout << temp.str << std::endl;
 	return(temp);
 }
 

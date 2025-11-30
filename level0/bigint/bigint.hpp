@@ -21,15 +21,15 @@ class bigint
 {
 	private:
 		std::string str;
-		//std::string result;
+		
 	public:
-		bigint();
+		bigint() : str("0") {};
 		bigint(unsigned int num);
-		bigint(const bigint& source);
-
-		std::string getStr()const;
-
+		bigint(const bigint& source) { *this = source; };
 		bigint& operator=(const bigint& source);
+
+		std::string getStr() const { return(this->str); };
+
 
 		// addition
 		bigint operator+(const bigint& other)const;
@@ -45,21 +45,19 @@ class bigint
 		bigint& operator<<=(unsigned int n);
 		bigint& operator>>=(unsigned int n);
 
-		//shift with object
+		// shift with object
 		bigint operator<<(const bigint& other)const;
 		bigint operator>>(const bigint& other)const;
 		bigint& operator<<=(const bigint& other);
 		bigint& operator>>=(const bigint& other);
 
-		// ==, !=, <, >, <=, >=
+		// comparison ==, !=, <, >, <=, >=
 		bool operator==(const bigint& other) const;
 		bool operator!=(const bigint& other) const;
 		bool operator<(const bigint& other) const;
 		bool operator>(const bigint& other) const;
 		bool operator<=(const bigint& other) const;
 		bool operator>=(const bigint& other) const;
-
-		// ~bigint();
 
 };
 

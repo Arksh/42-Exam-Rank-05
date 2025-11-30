@@ -15,9 +15,7 @@
 searchable_tree_bag& searchable_tree_bag::operator=(const searchable_tree_bag& source)
 {
 	if(this != &source)
-	{
 		tree_bag::operator=(source);
-	}
 	return(*this);
 }
 
@@ -28,9 +26,7 @@ bool searchable_tree_bag::search(node* node, const int value) const
 	if(node->value == value)
 		return(true);
 	else if(value < node->value)
-	{
 		return(search(node->l, value));
-	}
 	else
 		return(search(node->r, value));
 }
