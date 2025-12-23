@@ -14,28 +14,27 @@
 
 int init_game(t_game* game, char* argv[])
 {
+	// Convert command-line arguments to integers and allocate the board
 	game->width = atoi(argv[1]);
 	game->height = atoi(argv[2]);
-	game->iterations = atoi(argv[3]);
-	game->alive = '0';
-	game->dead = ' ';
+	game->turn = atoi(argv[3]);
 	game->i = 0;
 	game->j = 0;
 	game->draw = 0;
-	game->board = (char**)malloc((game->height) * sizeof(char *));
+	game->board = (char**)calloc((game->height), sizeof(char *));
+
+	// Check for allocation failure
 	if(!(game->board))
 		return(-1);
+
+	// Initialize the board with "dead" cells
 	for(int i = 0; i < game->height; i++)
 	{
-		game->board[i] = (char *)malloc((game->width) * sizeof(char));
-		if(!(game->board[i])) {
-			free_board(game);
-			return(-1);
-		}
+		game->board[i] = (char *)calloc((game->width), sizeof(char));
+		if(!(game->board[i]))
+			return(free_board(game), -1);
 		for(int j = 0; j < game->width; j++)
-		{
-			game->board[i][j] = ' ';
-		}
+			game->board[i][j] = '-';
 	}
 	return(0);
 }
@@ -44,27 +43,29 @@ void fill_board(t_game* game)
 {
 	char buffer;
 	int flag;
-
+	
+	// Read user input character by character to set initial live cells
 	while(read(STDIN_FILENO, &buffer, 1) == 1)
 	{
 		flag = 0;
+		// Process the input character to move the cursor or toggle drawing mode
 		switch (buffer)
 		{
 		case 'w':
 			if(game->i > 0)
-			game->i--;
+				game->i--;
 			break;
 		case 's':
 			if(game->i < (game->height - 1))
-			game->i++;
+				game->i++;
 			break;
 		case 'a':
 			if(game->j > 0)
-			game->j--;
+				game->j--;
 			break;
 		case 'd':
 			if(game->j < (game->width - 1))
-			game->j++;
+				game->j++;
 			break;
 		case 'x':
 			game->draw = !(game->draw);
@@ -74,11 +75,10 @@ void fill_board(t_game* game)
 			break;
 		}
 
+		// If in drawing mode and a movement key was pressed, set the current cell to "alive"
 		if(game->draw && (flag == 0))
-		{
 			if((game->i >= 0 )&& (game->i < game->height) && (game->j >= 0) && (game->j < game->width))
-				game->board[game->i][game->j] = game->alive;
-		}
+				game->board[game->i][game->j] = ALIVE;
 	}
 }
 
@@ -95,7 +95,7 @@ int count_neighbors(t_game* game, int i, int j)
 			int ni = i + di;
 			int nj = j + dj;
 			if((ni >= 0) && (nj >=0) && (ni < game->height) && (nj < game->width)) {
-				if(game->board[ni][nj] == game->alive)
+				if(game->board[ni][nj] == ALIVE)
 					count++;
 			}
 		}
@@ -106,6 +106,7 @@ int count_neighbors(t_game* game, int i, int j)
 int play(t_game* game)
 {
 	char** temp = (char**)malloc((game->height) * sizeof(char *));
+
 	if(!temp)
 		return(-1);
 	for(int i = 0; i < game->height; i++)
@@ -120,19 +121,25 @@ int play(t_game* game)
 		for(int j = 0; j < game->width; j++)
 		{
 			int neighbors = count_neighbors(game, i, j);
-			if(game->board[i][j] == game->alive) {
-				if(neighbors == 2 || neighbors == 3) {
-					temp[i][j] = game->alive;
-				}
+			if(game->board[i][j] == ALIVE)
+			{
+				// if version
+				if(neighbors == 2 || neighbors == 3)
+					temp[i][j] = ALIVE;
 				else
-					temp[i][j] = game->dead;
+					temp[i][j] = DEAD;
+				// ternary version
+				// temp[i][j] = (neighbors == 2 || neighbors == 3) ? ALIVE : DEAD;
 			}
-			else {
-				if(neighbors == 3) {
-					temp[i][j] = game->alive;
-				}
+			else
+			{
+				// if version
+				if(neighbors == 3)
+					temp[i][j] = ALIVE;
 				else
-					temp[i][j] = game->dead;
+					temp[i][j] = DEAD;
+				// ternary version
+				// temp[i][j] = (neighbors == 3) ? ALIVE : DEAD;
 			}
 		}
 	}
@@ -147,9 +154,7 @@ void print_board(t_game* game)
 	for(int i = 0; i < game->height; i++)
 	{
 		for(int j = 0; j < game->width; j++)
-		{
 			putchar(game->board[i][j]);
-		}
 		putchar('\n');
 	}
 }
@@ -159,10 +164,8 @@ void free_board(t_game* game)
 	if(game->board)
 	{
 		for(int i = 0; i < game->height; i++)
-		{
 			if(game->board[i])
 				free(game->board[i]);
-		}
 		free(game->board);
 	}
 }
@@ -174,17 +177,26 @@ int main(int argc, char* argv[])
 
 	t_game game;
 
+	// Firstly, initialize the game with command-line arguments
 	if(init_game(&game, argv) == -1)
 		return(1);
 
+	// Then, fill the board based on user input
 	fill_board(&game);
 
-	for(int i = 0; i < game.iterations; i++) {
-		if(play(&game) == -1) {
+	// Finally, run the game for the specified number of iterations
+	for(int i = 0; i < game.turn; i++)
+	{
+		// Update the board to the next generation
+		if(play(&game) == -1)
+		{
+			// Handle memory allocation failure during game play
 			free_board(&game);
 			return(1);
 		}
 	}
+
+	// Finally, print the resulting board and free allocated memory
 	print_board(&game);
 	free_board(&game);
 

@@ -19,6 +19,7 @@ searchable_tree_bag& searchable_tree_bag::operator=(const searchable_tree_bag& s
 	return(*this);
 }
 
+// O(log n) average time complexity
 bool searchable_tree_bag::search(node* node, const int value) const
 {
 	if(node == nullptr)

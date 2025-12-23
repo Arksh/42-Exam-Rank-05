@@ -19,25 +19,25 @@
 
 typedef struct s_elements
 {
-	int n_lines;
-	char empty;
-	char obstacle;
-	char full;
+	int n_lines;		// number of lines in the map
+	char empty;			// character representing empty space
+	char obstacle;		// character representing an obstacle
+	char full;			// character representing the full square
 
 } t_elements;
 
 typedef struct s_map
 {
-	char** grid;
-	int width;
-	int height;
+	char** grid;		// 2D array representing the map
+	int width;			// width of the map
+	int height;			// height of the map
 } t_map;
 
 typedef struct s_square
 {
-	int size;
-	int i;
-	int j;
+	int size;			// size of the largest square
+	int i;				// starting row index of the largest square
+	int j;				// starting column index of the largest square
 } t_square;
 
 int execute_bsq(FILE* file);
