@@ -5,7 +5,7 @@ Este repositorio es un **fork** del proyecto original de [Fatkeski](https://gith
 
 ---
 
-## Cambios realizados por Arksh
+## Cambios realizados por mí 
 
 - Ajustes menores en la sintaxis y estilo de código para hacerlo más legible de forma personal.
 - Posibles optimizaciones personales en algunas funciones.  
